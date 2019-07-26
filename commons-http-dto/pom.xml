@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>commons-http-dto</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Commons HTTP :: DTO</name>
     <description>Common functionality relating to the Data Transfer Object Side of HTTP</description>
     <packaging>jar</packaging>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.parisesoftware</groupId>
         <artifactId>commons-http-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
 </project>
