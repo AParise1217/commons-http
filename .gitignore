@@ -12,3 +12,7 @@ target/
 
 # ignore pom backup
 pom.xml.versionsBackup
+
+# ignore maven release files
+pom.xml.releaseBackup
+release.properties

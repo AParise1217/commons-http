@@ -10,6 +10,7 @@
     <name>Commons HTTP :: Parent Pom</name>
     <description>Parent POM to the HTTP Common Classes and Utils Library</description>
     <packaging>pom</packaging>
+    <url>https://github.com/AParise1217/commons-http</url>
 
     <modules>
         <module>commons-http-response</module>
