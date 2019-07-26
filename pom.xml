@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>commons-http-parent</artifactId>
     <groupId>com.parisesoftware</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>Commons HTTP :: Parent Pom</name>
     <description>Parent POM to the HTTP Common Classes and Utils Library</description>
     <packaging>pom</packaging>
@@ -15,12 +16,29 @@
         <module>commons-http-dto</module>
     </modules>
 
+    <developers>
+        <developer>
+            <email>AndrewParise1994@gmail.com</email>
+            <name>Andrew Parise</name>
+            <url>https://github.com/AParise1217</url>
+            <id>AParise1217</id>
+        </developer>
+    </developers>
+
     <scm>
         <connection>scm:git:git://github.com/AParise1217/commons-http.git</connection>
         <developerConnection>scm:git:git@github.com:AParise1217/commons-http.git</developerConnection>
         <url>https://github.com/AParise1217/commons-http</url>
         <tag>HEAD</tag>
     </scm>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <distributionManagement>
         <snapshotRepository>
@@ -44,6 +62,9 @@
     </properties>
 
     <build>
+
+        <sourceDirectory>${basedir}/src/main/groovy</sourceDirectory>
+
         <plugins>
 
             <!--  Groovy Compiler Plugin -->
@@ -55,13 +76,14 @@
                         <phase>compile</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${basedir}/src/main/groovy" />
+                                <mkdir dir="${basedir}/src/main/groovy"/>
                                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
-                                    <classpath refid="maven.compile.classpath" />
+                                    <classpath refid="maven.compile.classpath"/>
                                 </taskdef>
-                                <mkdir dir="${project.build.outputDirectory}" />
-                                <groovyc destdir="${project.build.outputDirectory}" srcdir="${basedir}/src/main/groovy/" listfiles="true">
-                                    <classpath refid="maven.compile.classpath" />
+                                <mkdir dir="${project.build.outputDirectory}"/>
+                                <groovyc destdir="${project.build.outputDirectory}" srcdir="${basedir}/src/main/groovy/"
+                                         listfiles="true">
+                                    <classpath refid="maven.compile.classpath"/>
                                 </groovyc>
                             </tasks>
                         </configuration>
@@ -74,13 +96,14 @@
                         <phase>test-compile</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${basedir}/src/test/groovy" />
+                                <mkdir dir="${basedir}/src/test/groovy"/>
                                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
-                                    <classpath refid="maven.test.classpath" />
+                                    <classpath refid="maven.test.classpath"/>
                                 </taskdef>
-                                <mkdir dir="${project.build.testOutputDirectory}" />
-                                <groovyc destdir="${project.build.testOutputDirectory}" srcdir="${basedir}/src/test/groovy/" listfiles="true">
-                                    <classpath refid="maven.test.classpath" />
+                                <mkdir dir="${project.build.testOutputDirectory}"/>
+                                <groovyc destdir="${project.build.testOutputDirectory}"
+                                         srcdir="${basedir}/src/test/groovy/" listfiles="true">
+                                    <classpath refid="maven.test.classpath"/>
                                 </groovyc>
                             </tasks>
                         </configuration>
@@ -135,8 +158,51 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-        </plugins>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>groovydoc-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.bluetrainsoftware.maven</groupId>
+                <artifactId>groovydoc-maven-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-docs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-docs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
     </build>
 
     <profiles>
@@ -163,6 +229,7 @@
                                     <goal>sign</goal>
                                 </goals>
                                 <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
                                     <gpgArguments>
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
@@ -172,6 +239,7 @@
                         </executions>
                     </plugin>
                 </plugins>
+
             </build>
         </profile>
     </profiles>
